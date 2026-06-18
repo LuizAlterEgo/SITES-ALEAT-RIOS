@@ -1,0 +1,223 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { 
+  MessageCircle, MapPin, Clock, Star, 
+  Menu, X, ChevronRight, ShoppingCart, 
+  Wind, Flame, Box, Zap 
+} from 'lucide-react';
+
+// Dados dos Produtos
+const categories = [
+  { name: "Sedas", icon: <Wind size={24} /> },
+  { name: "Piteiras", icon: <Box size={24} /> },
+  { name: "Dichavadores", icon: <Zap size={24} /> },
+  { name: "Bongs", icon: <Flame size={24} /> },
+  { name: "Pipes", icon: <Zap size={24} /> },
+  { name: "Narguilés", icon: <Wind size={24} /> },
+  { name: "Essências", icon: <Flame size={24} /> },
+  { name: "Acessórios", icon: <ShoppingCart size={24} /> },
+];
+
+// Dados das Avaliações
+const reviews = [
+  { name: "Cliente VIP", text: "Me amarro nessa loja, a loirinha que trabalha lá é muito gente boa.", rating: 5 },
+  { name: "Ricardo M.", text: "Tabacaria top demais, tem tudo que você precisa.", rating: 5 },
+  { name: "Ana Clara", text: "Com toda certeza irei comprar mais vezes, tornou a minha sessão especial.", rating: 5 },
+];
+
+const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const whatsappLink = "https://wa.me/5592991016938?text=Olá! Vim pelo site e gostaria de conhecer os produtos.";
+
+  return (
+    <div className="bg-[#050505] text-white font-sans selection:bg-neon-green selection:text-black">
+      
+      {/* NAVBAR */}
+      <nav className="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="text-2xl font-black tracking-tighter flex items-center gap-2">
+            <span className="text-neon-green">ABDUÇÃO</span>
+            <span className="text-purple-500">SHOP</span>
+          </div>
+          
+          <div className="hidden md:flex gap-8 font-medium">
+            <a href="#home" className="hover:text-neon-green transition">Início</a>
+            <a href="#sobre" className="hover:text-neon-green transition">Sobre</a>
+            <a href="#produtos" className="hover:text-neon-green transition">Produtos</a>
+            <a href="#contato" className="hover:text-neon-green transition">Localização</a>
+          </div>
+
+          <a href={whatsappLink} target="_blank" rel="noreferrer" className="bg-neon-green text-black px-6 py-2 rounded-full font-bold flex items-center gap-2 hover:scale-105 transition transform">
+            <MessageCircle size={20} /> WhatsApp
+          </a>
+
+          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+      </nav>
+
+      {/* HERO SECTION */}
+      <section id="home" className="relative pt-32 pb-20 overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/20 blur-[120px] rounded-full -z-10"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-neon-green/10 blur-[120px] rounded-full -z-10"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="flex items-center gap-2 mb-4 bg-white/5 w-fit px-4 py-1 rounded-full border border-white/10">
+              <div className="flex text-yellow-400">
+                {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+              </div>
+              <span className="text-sm font-semibold">4.9 no Google Business</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-black leading-tight mb-6">
+              A EXPERIÊNCIA <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-green to-purple-500">
+                INTERESTELAR
+              </span> <br />
+              DA SUA SESSÃO.
+            </h1>
+            <p className="text-gray-400 text-lg mb-8 max-w-lg">
+              A melhor Tabacaria e HeadShop de Manaus. Variedade premium, 
+              preço justo e o atendimento que você merece.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <a href="#produtos" className="bg-white text-black px-8 py-4 rounded-xl font-bold hover:bg-neon-green transition duration-300">
+                Ver Catálogo
+              </a>
+              <a href={whatsappLink} className="border border-white/20 px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition">
+                Falar com Atendente
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
+            <div className="aspect-square bg-gradient-to-br from-purple-500/20 to-neon-green/20 rounded-3xl border border-white/10 overflow-hidden relative group">
+              <img 
+                src="https://images.unsplash.com/photo-1603482705501-99927654a9c4?auto=format&fit=crop&q=80&w=800" 
+                alt="Abdução Tabacaria"
+                className="object-cover w-full h-full opacity-80 group-hover:scale-110 transition duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* PRODUTOS CATEGORIAS */}
+      <section id="produtos" className="py-20 bg-white/5">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">O Que Temos de <span className="text-neon-green">Melhor</span></h2>
+            <p className="text-gray-400">Tudo o que você precisa para o seu ritual em um só lugar.</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {categories.map((cat, index) => (
+              <motion.div 
+                whileHover={{ y: -10 }}
+                key={index}
+                className="bg-black border border-white/10 p-8 rounded-2xl text-center hover:border-neon-green/50 transition cursor-pointer"
+              >
+                <div className="bg-neon-green/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-neon-green">
+                  {cat.icon}
+                </div>
+                <h3 className="font-bold text-xl">{cat.name}</h3>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* DEPOIMENTOS */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-12 flex items-center justify-center gap-2">
+            Quem conhece, <span className="text-purple-500 underline decoration-neon-green">recomenda</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8 text-left">
+            {reviews.map((rev, i) => (
+              <div key={i} className="bg-white/5 p-8 rounded-2xl border border-white/5 relative">
+                <Star className="text-neon-green mb-4" fill="currentColor" size={20} />
+                <p className="italic text-gray-300 mb-6 font-medium">"{rev.text}"</p>
+                <p className="font-bold text-neon-green">— {rev.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* LOCALIZAÇÃO E CONTATO */}
+      <section id="contato" className="py-20 border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12">
+          <div>
+            <h2 className="text-4xl font-black mb-8">VENHA NOS <br/><span className="text-neon-green">VISITAR</span></h2>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <MapPin className="text-neon-green mt-1" />
+                <div>
+                  <p className="font-bold text-xl">Manaus - AM</p>
+                  <p className="text-gray-400">Lateral Retorno do Amazonas Shopping<br/>Av. Djalma Batista, 2465 - Chapada</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <Clock className="text-neon-green mt-1" />
+                <div>
+                  <p className="font-bold text-xl">Horário de Funcionamento</p>
+                  <p className="text-gray-400">Aberto diariamente até às 22:00</p>
+                </div>
+              </div>
+            </div>
+            <a 
+              href="https://www.google.com/maps/dir//Av.+Djalma+Batista,+2465+-+Chapada,+Manaus+-+AM,+69050-010" 
+              target="_blank" 
+              rel="noreferrer"
+              className="mt-10 inline-flex items-center gap-3 bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-xl font-bold transition"
+            >
+              Como Chegar <ChevronRight size={20} />
+            </a>
+          </div>
+
+          <div className="h-[400px] rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-purple-500/10">
+            <iframe 
+              title="Mapa Abdução"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.9213123456!2d-60.02!3d-3.10!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x926c100000000001%3A0x1234567890!2sAv.%20Djalma%20Batista%2C%202465!5e0!3m2!1spt-BR!2sbr!4v1234567890" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen="" 
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="py-10 bg-black border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-gray-500 text-sm">
+            © 2024 Abdução Tabacaria e HeadShop. Todos os direitos reservados.
+          </p>
+          <p className="text-red-500/80 text-xs font-bold uppercase tracking-widest border border-red-500/20 px-4 py-2 rounded">
+            Proibido para menores de 18 anos
+          </p>
+          <div className="flex gap-4">
+             {/* Adicionar links de redes sociais aqui */}
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
